@@ -219,15 +219,18 @@ frontend:
 
   - task: "Movie Categories Display"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/MovieRow.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "testing"
         comment: "Testing Trending Now, Popular on Netflix, Top Rated, and Action & Adventure sections with movie posters"
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS: All 4 movie categories display perfectly - Trending Now (20 movies), Popular on Netflix (20 movies), Top Rated (20 movies), Action & Adventure (20 movies). Total 80 movies loaded with proper TMDB poster images. All sections render correctly."
 
   - task: "Movie Card Interactions"
     implemented: true
