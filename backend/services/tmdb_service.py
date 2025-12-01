@@ -132,8 +132,17 @@ class TMDBService:
     
     def get_featured(self) -> Optional[Dict]:
         """Get a featured movie (first from trending)"""
-        trending = self.get_trending(limit=1)
-        return trending[0] if trending else None
+        data = self.make_request('/trending/all/week')
+        if data and 'results' in data and len(data['results']) > 0:
+            # Fetch trailer for featured movie
+            movie = self.format_movie(data['results'][0], fetch_trailer=True)
+            if movie['backdrop_path'] and movie['poster_path']:
+                return movie
+        return None
+    
+    def get_movie_trailer(self, movie_id: int, media_type: str = "movie") -> Optional[str]:
+        """Get trailer key for a specific movie"""
+        return self.get_trailer_key(movie_id, media_type)
 
 # Singleton instance
 tmdb_service = TMDBService()
