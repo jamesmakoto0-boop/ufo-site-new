@@ -234,15 +234,18 @@ frontend:
 
   - task: "Movie Card Interactions"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/MovieCard.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "testing"
         comment: "Testing hover effects, additional buttons (Play, Plus, Like icons), and movie card clicks"
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS: Movie card interactions working well. Cards are clickable and trigger modal opening. Hover effects implemented with scale animation. Interactive buttons (Play, Plus, Like, ChevronDown) visible on hover. Movie cards responsive and properly styled."
 
   - task: "Trailer Modal Functionality"
     implemented: true
