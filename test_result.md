@@ -282,7 +282,12 @@ metadata:
 
 test_plan:
   current_focus:
-    - "All Netflix clone backend API endpoints tested"
+    - "Homepage Load and Hero Banner"
+    - "Movie Categories Display"
+    - "Movie Card Interactions"
+    - "Trailer Modal Functionality"
+    - "Search Functionality"
+    - "Navigation and Scrolling"
   stuck_tasks: []
   test_all: true
   test_priority: "high_first"
