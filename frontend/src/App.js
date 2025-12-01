@@ -4,45 +4,87 @@ import Header from './components/Header';
 import HeroBanner from './components/HeroBanner';
 import MovieRow from './components/MovieRow';
 import TrailerModal from './components/TrailerModal';
-import { mockMovies, featuredMovie } from './mock';
 import { Toaster } from './components/ui/toaster';
 import { useToast } from './hooks/use-toast';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 function App() {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchResults, setSearchResults] = useState(null);
+  const [featuredMovie, setFeaturedMovie] = useState(null);
+  const [trendingMovies, setTrendingMovies] = useState([]);
+  const [popularMovies, setPopularMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
+  const [actionMovies, setActionMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+
+  useEffect(() => {
+    fetchAllMovies();
+  }, []);
+
+  const fetchAllMovies = async () => {
+    try {
+      setLoading(true);
+      const [featured, trending, popular, topRated, action] = await Promise.all([
+        axios.get(`${API}/movies/featured`),
+        axios.get(`${API}/movies/trending`),
+        axios.get(`${API}/movies/popular`),
+        axios.get(`${API}/movies/top_rated`),
+        axios.get(`${API}/movies/action`),
+      ]);
+
+      setFeaturedMovie(featured.data);
+      setTrendingMovies(trending.data.movies);
+      setPopularMovies(popular.data.movies);
+      setTopRatedMovies(topRated.data.movies);
+      setActionMovies(action.data.movies);
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+      toast({
+        title: 'Error loading movies',
+        description: 'Please refresh the page to try again',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handlePlayTrailer = (movie) => {
     setSelectedMovie(movie);
     setIsModalOpen(true);
   };
 
-  const handleSearch = (query) => {
-    const allMovies = [
-      ...mockMovies.trending,
-      ...mockMovies.popular,
-      ...mockMovies.topRated,
-      ...mockMovies.action,
-    ];
-    
-    const results = allMovies.filter((movie) =>
-      movie.title.toLowerCase().includes(query.toLowerCase())
-    );
-    
-    if (results.length > 0) {
-      setSearchResults(results);
+  const handleSearch = async (query) => {
+    try {
+      const response = await axios.get(`${API}/movies/search?query=${query}`);
+      const results = response.data.movies;
+      
+      if (results.length > 0) {
+        setSearchResults(results);
+        toast({
+          title: `Found ${results.length} result${results.length > 1 ? 's' : ''}`,
+          description: `Showing results for "${query}"`,
+        });
+      } else {
+        setSearchResults([]);
+        toast({
+          title: "No results found",
+          description: `No movies match "${query}"`,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error searching movies:', error);
       toast({
-        title: `Found ${results.length} result${results.length > 1 ? 's' : ''}`,
-        description: `Showing results for "${query}"`,
-      });
-    } else {
-      setSearchResults([]);
-      toast({
-        title: "No results found",
-        description: `No movies match "${query}"`,
-        variant: "destructive",
+        title: 'Search failed',
+        description: 'Please try again',
+        variant: 'destructive',
       });
     }
   };
@@ -56,6 +98,14 @@ function App() {
       window.scrollTo({ top: 800, behavior: 'smooth' });
     }
   }, [searchResults]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-2xl">Loading Netflix...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-black">
