@@ -142,22 +142,22 @@ function App() {
             <>
               <MovieRow
                 title="Trending Now"
-                movies={mockMovies.trending}
+                movies={trendingMovies}
                 onMovieClick={handlePlayTrailer}
               />
               <MovieRow
                 title="Popular on Netflix"
-                movies={mockMovies.popular}
+                movies={popularMovies}
                 onMovieClick={handlePlayTrailer}
               />
               <MovieRow
                 title="Top Rated"
-                movies={mockMovies.topRated}
+                movies={topRatedMovies}
                 onMovieClick={handlePlayTrailer}
               />
               <MovieRow
                 title="Action & Adventure"
-                movies={mockMovies.action}
+                movies={actionMovies}
                 onMovieClick={handlePlayTrailer}
               />
             </>
