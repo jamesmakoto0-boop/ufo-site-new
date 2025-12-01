@@ -55,7 +55,17 @@ function App() {
     }
   };
 
-  const handlePlayTrailer = (movie) => {
+  const handlePlayTrailer = async (movie) => {
+    // Fetch trailer if not already present or using fallback
+    if (!movie.trailer_key || movie.trailer_key === 'dQw4w9WgXcQ') {
+      try {
+        const response = await axios.get(`${API}/movies/trailer/${movie.id}?media_type=${movie.media_type || 'movie'}`);
+        movie.trailer_key = response.data.trailer_key;
+      } catch (error) {
+        console.error('Error fetching trailer:', error);
+        movie.trailer_key = 'dQw4w9WgXcQ'; // Use fallback
+      }
+    }
     setSelectedMovie(movie);
     setIsModalOpen(true);
   };
