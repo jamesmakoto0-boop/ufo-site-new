@@ -85,3 +85,15 @@ async def get_featured():
     except Exception as e:
         logger.error(f"Error fetching featured: {str(e)}")
         raise HTTPException(status_code=500, detail="Failed to fetch featured movie")
+
+@router.get("/trailer/{movie_id}")
+async def get_movie_trailer(movie_id: int, media_type: str = "movie"):
+    """Get trailer key for a specific movie"""
+    try:
+        trailer_key = tmdb_service.get_movie_trailer(movie_id, media_type)
+        if not trailer_key:
+            return {"trailer_key": "dQw4w9WgXcQ"}  # Fallback
+        return {"trailer_key": trailer_key}
+    except Exception as e:
+        logger.error(f"Error fetching trailer: {str(e)}")
+        return {"trailer_key": "dQw4w9WgXcQ"}  # Fallback on error
