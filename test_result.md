@@ -295,3 +295,5 @@ test_plan:
 agent_communication:
   - agent: "testing"
     message: "Comprehensive backend API testing completed successfully. All 7 Netflix clone endpoints (trending, popular, top_rated, action, search, featured, trailer) are working correctly with proper data structure validation. TMDB integration is functioning perfectly with valid image URLs and proper error handling. Backend is production-ready."
+  - agent: "testing"
+    message: "Starting comprehensive frontend testing for Netflix clone. Will test homepage load, hero banner, movie categories, card interactions, trailer modal, search functionality, and navigation. Backend URL configured as https://trailerflix-2341.preview.emergentagent.com"
