@@ -65,14 +65,16 @@ class TMDBService:
                     return video.get('key')
         return None
     
-    def format_movie(self, item: Dict) -> Dict:
+    def format_movie(self, item: Dict, fetch_trailer: bool = False) -> Dict:
         """Format TMDB movie/show data to our format"""
         media_type = item.get('media_type', 'movie')
         movie_id = item.get('id')
         title = item.get('title') or item.get('name', 'Unknown Title')
         
-        # Get trailer key
-        trailer_key = self.get_trailer_key(movie_id, media_type) or "dQw4w9WgXcQ"  # Fallback
+        # Get trailer key only if explicitly requested
+        trailer_key = "dQw4w9WgXcQ"  # Default fallback trailer
+        if fetch_trailer:
+            trailer_key = self.get_trailer_key(movie_id, media_type) or "dQw4w9WgXcQ"
         
         return {
             'id': movie_id,
