@@ -202,7 +202,77 @@ backend:
         comment: "✅ PASS: TMDB service integration working perfectly. API key rotation implemented. All movie data properly formatted with valid image URLs (https://image.tmdb.org/t/p/...). Error handling and fallback mechanisms working."
 
 frontend:
-  # Frontend testing not performed as per instructions
+  - task: "Homepage Load and Hero Banner"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/HeroBanner.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Testing hero banner load with featured movie, Play and More Info buttons, and background image"
+
+  - task: "Movie Categories Display"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/MovieRow.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Testing Trending Now, Popular on Netflix, Top Rated, and Action & Adventure sections with movie posters"
+
+  - task: "Movie Card Interactions"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/MovieCard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Testing hover effects, additional buttons (Play, Plus, Like icons), and movie card clicks"
+
+  - task: "Trailer Modal Functionality"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/TrailerModal.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Testing modal open/close, YouTube iframe loading, movie details display, and close button functionality"
+
+  - task: "Search Functionality"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Header.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Testing search icon, input field, search results, toast notifications, and clear search functionality"
+
+  - task: "Navigation and Scrolling"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/Header.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "testing"
+        comment: "Testing Netflix logo, navigation menu, header scroll behavior, and horizontal movie row scrolling"
 
 metadata:
   created_by: "testing_agent"
