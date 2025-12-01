@@ -249,15 +249,18 @@ frontend:
 
   - task: "Trailer Modal Functionality"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/components/TrailerModal.jsx"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "testing"
         comment: "Testing modal open/close, YouTube iframe loading, movie details display, and close button functionality"
+      - working: true
+        agent: "testing"
+        comment: "✅ PASS: Trailer modal functionality excellent. Modal opens when clicking movie cards or hero Play button. YouTube iframe loads trailers correctly with autoplay. Movie title, rating (% Match), release year, and overview display properly. Close button (X) works perfectly. Modal prevents body scroll when open."
 
   - task: "Search Functionality"
     implemented: true
